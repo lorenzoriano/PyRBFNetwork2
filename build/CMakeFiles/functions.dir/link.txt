@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC  -Wall -O3 -Wno-unused-variable -D_POSIX_PTHREAD_SEMANTICS -D_REENTRANT -DNDEBUG -DBOOST_UBLAS_NDEBUG  -shared -Wl,-soname,libfunctions.so -o libfunctions.so CMakeFiles/functions.dir/rbfnetwork/functions.cpp.o -lboost_python -lpython2.6 -llapack 

@@ -1,0 +1,10 @@
+build/
+CMakeFiles
+CMakeCache.txt
+.cproject
+.project
+.pydevproject
+.settings
+lib*.so
+*.pyc
+cmake_install.cmake
