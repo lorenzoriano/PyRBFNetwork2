@@ -31,12 +31,7 @@ class RbfClassifier(RbfNetwork):
         self.__indeces = []
 
     def select_random_kernels(self,  input,  size):
-        newinput = numpy.asarray(input)
-        if newinput.ndim != 2:
-            raise ValueError("input has to be a matrix")
-        if newinput.shape[1] != self.input_size:
-            raise ValueError("input dimension differs from the RBF one")
-        
+        newinput = self.test_input(input)   
         indeces = random.sample(xrange(newinput.shape[0]), size) 
 
         self.__indeces = list(indeces)
@@ -44,28 +39,15 @@ class RbfClassifier(RbfNetwork):
 
     def lsqtrain(self,  input,  output):
 
-        newinput = numpy.asarray(input)
         newoutput = classes2matrix(output)
-
-        if newinput.ndim != newoutput.ndim:
-            raise ValueError("input and output must have the same shape")
-
-        if newinput.ndim != 2:
-            raise ValueError("input has to be a matrix")
-
-        if newinput.shape[1] != self.input_size:
-            raise ValueError("input dimension differs from the RBF one")
+        newinput = self.test_input(input)
+                
         if newoutput.shape[1] != self.output_size:
             raise ValueError("output dimension differs from the RBF one")
 
         if newoutput.shape[0] != newinput.shape[0]:
             raise ValueError(
                 "input and output must have the same number of rows ")
-
-        if newoutput.shape[1] <=0:
-            raise ValueError("output has <=0 columns")
-        if newinput.shape[1] <=0:
-            raise ValueError("input has <=0 columns")
 
         newweights = numpy.vstack( (numpy.zeros((1,newoutput.shape[1])), newoutput[self.__indeces,  :]) )
         self.weights = newweights

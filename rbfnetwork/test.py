@@ -11,6 +11,7 @@ from rbfclassifier import RbfClassifier
 print "Regression 1d"
 
 x = np.linspace(-np.pi, np.pi, 100)
+x = np.array(x, ndmin=2).T
 y = np.sin(x)
 
 normalizer = Normalizer()
@@ -19,20 +20,21 @@ norm_input = normalizer.normalize(x)
 print "NORM SHAPE:", norm_input.shape
 
 
-net = rbfnetwork.RbfNetwork(1,1,0.1)
-net.select_random_kernels(norm_input, 5)
+net = rbfnetwork.RbfNetwork(1,1,0.2)
+net.select_random_kernels(norm_input, 7)
 
 err = net.lsqtrain(norm_input,y)
 print "Err: ", err
 
 pylab.figure()
 x = np.linspace(-np.pi, np.pi, 1000)
+x = np.array(x, ndmin=2).T
 y = np.sin(x)
 norm_input = normalizer.normalize(x)
 
-#pylab.plot(x, y)
-#pylab.plot(x, net.output(norm_input))
-#pylab.show()
+pylab.plot(x, y)
+pylab.plot(x, net.output(norm_input))
+pylab.show()
 
 print "Regression 2d"
 input1 = np.linspace(0, np.pi, 100)
