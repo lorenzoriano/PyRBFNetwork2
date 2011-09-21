@@ -36,7 +36,6 @@ class RbfClassifier(RbfNetwork):
             raise ValueError("input has to be a matrix")
         if newinput.shape[1] != self.input_size:
             raise ValueError("input dimension differs from the RBF one")
-        max_elements = newinput.shape[0]
         
         indeces = random.sample(xrange(newinput.shape[0]), size) 
 

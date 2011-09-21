@@ -18,10 +18,14 @@ class Normalizer(object):
         
     def normalize(self, input):
         input = np.asarray(input)
-        if input.ndim == 1:
-            input = np.array(input, ndmin=2).T
+        if input.shape[0] != self.max.shape[0]:
+            raise ValueError("input dimension differs from the Normalizer one")
+#        if input.ndim == 1:
+#            input = np.array(input, ndmin=2).T
         return (input - self.min) / (self.max - self.min)
     
     def denormalize(self, input):
         input = np.asarray(input)
+        if input.shape[0] != self.max.shape[0]:
+            raise ValueError("input dimension differs from the Normalizer one")
         return input * (self.max - self.min) + self.min
